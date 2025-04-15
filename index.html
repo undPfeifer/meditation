@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <title>vagusnerv meditation</title>
+
+
+    <style>
+        * {
+            
+            font-family: 'Akkurat', sans-serif;
+            color: wheat;
+        }
+
+        @font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/AkkuratStd-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/AkkuratPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/Akkurat-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/AkkuratStd-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/AkkuratStd-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Akkurat';
+  src: url('./fonts/AkkuratStd-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+body {
+  font-family: 'akkurat', sans-serif;
+  background-color: #0E1326;
+}
+
+        h3 {
+            all: unset;
+
+        }
+        button {
+            all: unset;
+
+            height: auto;
+            width: auto;
+
+            padding: 20px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            background-color: #0C66F0;
+            color: white;
+
+            border-radius: 150px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #327be9;
+        }
+        button:active {
+            background-color: #458bf3;
+        }
+
+        .time_display--container{
+            background-color: #171941;
+            color: white;
+
+            padding: 20px;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            height: 70vh;
+            overlay: black;
+            background-image: url('img/gpt-image.png');
+            background-size: cover;
+
+        }
+
+        #time_display{
+            font-size: 100px;
+            font-weight: 600;
+            margin-top: -12px;
+        }
+        #state_display {
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>vagusnerv</h1>
+
+    <div class="time_display--container"> 
+
+        <h2 id="state_display"> middle </h2>
+        <h3 id="time_display" > 0:00</h3>
+        <button id="button_start"> ► start </button>
+
+
+    </div>
+   
+</body>
+
+<script>
+    const buttonStart= document.getElementById('button_start');
+    const timeDisplay= document.getElementById('time_display');
+    const stateDisplay= document.getElementById('state_display');
+
+    const soundChime= new Audio();
+
+    soundChime.src= '/Crash Martiniq.wav';
+
+
+    let seconds = 0;
+    let minutes = 0;
+    let timerInterval;
+    let state='middle';
+
+
+
+    function updateTime() {
+
+
+        if (minutes===1 && state==='middle') {
+            clearInterval(timerInterval);
+            soundChime.play();
+            state='left'
+            minutes=0;
+            timerInterval= setInterval(updateTime, 100);
+            console.log('middle done')
+        }
+        else if (minutes===2 && state==='left') {
+            clearInterval(timerInterval);
+            soundChime.play();
+            state='right';
+            minutes=0;
+            timerInterval= setInterval(updateTime, 100)
+            console.log('left done')
+
+        }
+
+        else if (minutes===2 && state==='right') {
+            clearInterval(timerInterval);
+            soundChime.play();
+            state='done'
+            alert('timerDone')
+            minutes=0;
+            seconds=0;
+        }
+        else if (seconds===60) {
+            seconds=0;
+            minutes+=1;
+            
+        }
+
+
+        timeDisplay.innerText= `${minutes}:${String(seconds).padStart(2 , '0')}`
+        stateDisplay.innerText= state;
+
+        console.log(minutes)
+        seconds++;
+
+
+    }
+
+
+
+
+    buttonStart.addEventListener('click' , ()=> {
+
+         timerInterval= setInterval(updateTime, 100)
+
+    })
+
+    
+</script>
+</html>
