@@ -158,7 +158,7 @@ body {
             soundChime.play();
             state='left'
             minutes=0;
-            timerInterval= setInterval(updateTime, 100);
+            timerInterval= setInterval(updateTime, 1000);
             console.log('middle done')
         }
         else if (minutes===2 && state==='left') {
@@ -166,7 +166,7 @@ body {
             soundChime.play();
             state='right';
             minutes=0;
-            timerInterval= setInterval(updateTime, 100)
+            timerInterval= setInterval(updateTime, 1000)
             console.log('left done')
 
         }
@@ -200,7 +200,7 @@ body {
 
     buttonStart.addEventListener('click' , ()=> {
 
-         timerInterval= setInterval(updateTime, 100)
+         timerInterval= setInterval(updateTime, 1000)
 
     })
 
